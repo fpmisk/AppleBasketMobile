@@ -4,6 +4,7 @@
 
 @interface Apple :  NSObject <Fruit>
 
-@property NSNumber *seed;
+@property int seed;
+@property NSString *taste;
 
 @end

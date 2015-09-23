@@ -11,10 +11,21 @@
 
 -(id) init {
     if(self = [super init]) {
-        [self setCurrentColor: (FruitColor) greenColor];
+        self.currentColor = greenColor;
         srandom(time(NULL));
-        [self setSeed: [[NSNumber alloc] initWithInt: (random() % 30) + 10]];
-        [self setIsHang: true];
+        self.seed = (random() % 30) + 10;
+        self.isHang = true;
+        switch (random() % 3) {
+            case 0:
+                self.taste = @"Sour";
+                break;
+            case 1:
+                self.taste = @"Sweet and sour";
+                break;
+            case 2:
+                self.taste = @"Sweet";
+                break;
+        }
         NSLog(@"Apple was created");
     }
     return self;
@@ -22,7 +33,7 @@
 
 -(id) initWithColor: (FruitColor) fruitColor {
     if(self = [self init]) {
-        [self setCurrentColor: (FruitColor) fruitColor];
+        self.currentColor = fruitColor;
         NSLog(@"Apple was created");
     }
     return self;
@@ -75,6 +86,27 @@
             break;
     }
     return [color stringByAppendingString: @" apple"];
+}
+
+-(NSDictionary*) getFuitDetails {
+    NSString* color = @":)";
+    switch ([self currentColor]) {
+        case greenColor:
+            color = @"Green";
+            break;
+        case orangeColor:
+            color = @"Oragne";
+            break;
+        case redColor:
+            color = @"Red";
+            break;
+        case yellowColor:
+            color = @"Yellow";
+            break;
+    }
+    return @{@"Color": color,
+             @"Seed count" : [[NSNumber alloc] initWithInt: self.seed],
+             @"Taste": self.taste};
 }
 
 @end

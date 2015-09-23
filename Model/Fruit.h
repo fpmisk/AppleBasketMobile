@@ -25,5 +25,6 @@ typedef enum _FruitColor {
 -(BOOL) drop;
 -(void) grow;
 -(NSString*) getName;
+-(NSDictionary*) getFuitDetails;
 
 @end

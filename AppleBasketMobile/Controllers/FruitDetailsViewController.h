@@ -7,7 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Fruit.h"
 
-@interface FruitDetailsViewController : UIViewController
+@interface FruitDetailsViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
+
+
+@property (weak, nonatomic) IBOutlet UITableView *detailsTableView;
+@property NSObject<Fruit> *fruit;
 
 @end

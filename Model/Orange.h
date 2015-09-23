@@ -4,6 +4,6 @@
 
 @interface Orange :  NSObject <Fruit>
 
-@property NSNumber *seed;
+@property int seed;
 
 @end

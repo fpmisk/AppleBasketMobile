@@ -28,6 +28,7 @@ BasketIterator *iterator;
     iterator = [basket iterator];
 
     self.title = @"Fruit basket";
+    myTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -40,7 +41,7 @@ BasketIterator *iterator;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    static NSString *simpleTableIdentifier = @"SimpleTableItem";
+    static NSString *simpleTableIdentifier = @"FruitCellID";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:simpleTableIdentifier];
     if ([iterator hasNext]) {
         if (cell == nil) {
@@ -48,13 +49,31 @@ BasketIterator *iterator;
         }
     
         cell.textLabel.text = [[iterator next] getName];
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
     return cell;
 }
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-//    UIViewController *view1 = [self.storyboard instantiateViewControllerWithIdentifier:@"FruitDetailViewController"];
-//    [self.navigationController pushViewController:view1 animated:YES];
-//    [self presentViewController:view1 animated:YES completion:nil];
-    [self performSegueWithIdentifier:@"FruitDetailController" sender:self];
+    [self performSegueWithIdentifier:@"ShowFruitDetails" sender:self];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([[segue identifier] isEqualToString:@"ShowFruitDetails"]) {
+        // Get reference to the destination view controller
+        FruitDetailsViewController *vc = [segue destinationViewController];
+        
+        NSInteger fruitIndex = [myTableView indexPathForSelectedRow].row;
+        BasketIterator *it = [basket iterator];
+        int index = 0;
+        NSObject<Fruit> *fruit;
+        while ([it hasNext]) {
+            fruit = [it next];
+            if (index == fruitIndex)
+                break;
+            index++;
+        }
+        [vc setFruit: fruit];
+    }
 }
 @end
