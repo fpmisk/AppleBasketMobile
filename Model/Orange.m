@@ -14,8 +14,7 @@
 -(id) init {
     if(self = [super init]) {
         self.currentColor = greenColor;
-        srandom(time(NULL));
-        self.seed = (random() % 30) + 10;
+        self.seed = (arc4random() % 30) + 10;
         self.isHang = true;
         NSLog(@"Orange was created");
     }

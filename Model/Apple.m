@@ -12,10 +12,9 @@
 -(id) init {
     if(self = [super init]) {
         self.currentColor = greenColor;
-        srandom(time(NULL));
-        self.seed = (random() % 30) + 10;
+        self.seed = (arc4random() % 30) + 10;
         self.isHang = true;
-        switch (random() % 3) {
+        switch (arc4random() % 3) {
             case 0:
                 self.taste = @"Sour";
                 break;
